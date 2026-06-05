@@ -49,7 +49,7 @@ export function Skills({ initialSkills = [] }: { initialSkills?: any[] }) {
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all cursor-pointer ${
                   activeTab === i
                     ? "bg-[#3B82F6] text-white shadow-lg shadow-blue-500/25"
-                    : "glass-card text-foreground/60 hover:text-foreground"
+                    : "glass-card text-slate-700 dark:text-slate-300 hover:text-foreground"
                 }`}
               >
                 <Icon className="w-4 h-4" />

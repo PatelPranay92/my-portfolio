@@ -25,7 +25,7 @@ export function Achievements() {
           subtitle="By the Numbers"
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           {achievements.map((ach, i) => {
             const Icon = icons[i % icons.length];
             const colors = [
@@ -63,7 +63,7 @@ export function Achievements() {
                     duration={ach.value > 100 ? 2.5 : 1.5}
                   />
                 </div>
-                <div className="text-xs text-foreground/40 font-medium">
+                <div className="text-xs text-slate-600 dark:text-slate-400 font-medium">
                   {ach.label}
                 </div>
               </motion.div>

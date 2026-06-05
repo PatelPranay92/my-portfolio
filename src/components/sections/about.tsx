@@ -36,18 +36,18 @@ export function About() {
                 <h3 className="text-lg font-semibold">My Journey</h3>
               </div>
 
-              <p className="text-foreground/60 leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 I&apos;m a passionate Full Stack Developer specializing in modern web
                 technologies, AI solutions, automation systems, dashboard
                 development, and enterprise-grade applications.
               </p>
-              <p className="text-foreground/60 leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 My expertise spans building responsive user interfaces, robust
                 backend systems, scalable APIs, efficient database architectures,
                 and AI-powered workflows. I thrive on turning complex problems
                 into elegant, user-friendly solutions.
               </p>
-              <p className="text-foreground/60 leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 With a deep focus on innovation, scalability, clean architecture,
                 performance optimization, and user-centric design, I build
                 software that doesn&apos;t just work — it excels.
@@ -64,7 +64,7 @@ export function About() {
                     key={item.label}
                     className="p-3 rounded-xl bg-foreground/[0.03] border border-foreground/5"
                   >
-                    <div className="text-xs text-foreground/40 uppercase tracking-wider mb-1">
+                    <div className="text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider mb-1">
                       {item.label}
                     </div>
                     <div className="text-sm font-medium">{item.value}</div>
@@ -114,7 +114,7 @@ export function About() {
                     >
                       {step.label}
                     </div>
-                    <p className="text-sm text-foreground/50 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                       {i === 0 &&
                         "Started with HTML, CSS, JavaScript — building the foundation for everything that followed."}
                       {i === 1 &&

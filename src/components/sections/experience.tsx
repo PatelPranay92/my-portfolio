@@ -54,7 +54,7 @@ export function Experience() {
                       {entry.period}
                     </div>
                     <h3 className="text-lg font-bold mb-2">{entry.title}</h3>
-                    <p className="text-sm text-foreground/50 leading-relaxed mb-4">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
                       {entry.description}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
@@ -62,7 +62,7 @@ export function Experience() {
                         <Badge
                           key={skill}
                           variant="secondary"
-                          className="text-[10px] bg-foreground/5 text-foreground/50 hover:text-foreground/70"
+                          className="text-[10px] bg-foreground/5 text-slate-600 dark:text-slate-400 hover:text-slate-700 dark:text-slate-300"
                         >
                           {skill}
                         </Badge>

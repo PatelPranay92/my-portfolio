@@ -113,7 +113,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
             <h3 className="text-lg font-semibold mb-2">
               Let&apos;s work together
             </h3>
-            <p className="text-sm text-foreground/50 leading-relaxed mb-6">
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               I&apos;m always interested in hearing about new opportunities,
               projects, and collaborations. Feel free to reach out!
             </p>
@@ -141,7 +141,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                         <Icon className="w-4 h-4 text-[#3B82F6]" />
                       </div>
                       <div>
-                        <div className="text-xs text-foreground/40">
+                        <div className="text-xs text-slate-600 dark:text-slate-400">
                           {info.label}
                         </div>
                         <div className="text-sm font-medium">{info.value}</div>
@@ -153,7 +153,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                         <Icon className="w-4 h-4 text-[#3B82F6]" />
                       </div>
                       <div>
-                        <div className="text-xs text-foreground/40">
+                        <div className="text-xs text-slate-600 dark:text-slate-400">
                           {info.label}
                         </div>
                         <div className="text-sm font-medium">{info.value}</div>
@@ -190,7 +190,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                       <CheckCircle2 className="w-16 h-16 text-[#10B981] mb-4" />
                     </motion.div>
                     <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
-                    <p className="text-sm text-foreground/50">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                       Thanks for reaching out. I&apos;ll get back to you soon.
                     </p>
                   </motion.div>
@@ -204,7 +204,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                       <div>
                         <label
                           htmlFor="contact-name"
-                          className="block text-xs font-medium text-foreground/50 mb-1.5"
+                          className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5"
                         >
                           Name
                         </label>
@@ -228,7 +228,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                       <div>
                         <label
                           htmlFor="contact-email"
-                          className="block text-xs font-medium text-foreground/50 mb-1.5"
+                          className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5"
                         >
                           Email
                         </label>
@@ -255,7 +255,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                     <div>
                       <label
                         htmlFor="contact-subject"
-                        className="block text-xs font-medium text-foreground/50 mb-1.5"
+                        className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5"
                       >
                         Subject
                       </label>
@@ -280,7 +280,7 @@ export function Contact({ socialLinks = [] }: { socialLinks?: any[] }) {
                     <div>
                       <label
                         htmlFor="contact-message"
-                        className="block text-xs font-medium text-foreground/50 mb-1.5"
+                        className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5"
                       >
                         Message
                       </label>

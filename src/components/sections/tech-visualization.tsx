@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { radarData, skillCategories } from "@/lib/data";
@@ -12,6 +13,12 @@ import {
 } from "recharts";
 
 export function TechVisualization() {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const allSkills = skillCategories.flatMap((cat) =>
     cat.skills.map((s) => ({ ...s, category: cat.title }))
   );
@@ -38,29 +45,31 @@ export function TechVisualization() {
               <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
               Skill Radar
             </h3>
-            <div className="h-[280px] sm:h-[320px] lg:h-[360px] w-full">
-              <ResponsiveContainer width="100%" height="100%" minWidth={10} minHeight={10}>
-                <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="65%">
-                  <PolarGrid
-                    stroke="rgba(148,163,184,0.1)"
-                    strokeDasharray="3 3"
-                  />
-                  <PolarAngleAxis
-                    dataKey="subject"
-                    tick={{
-                      fill: "rgba(148,163,184,0.6)",
-                      fontSize: 10,
-                    }}
-                  />
-                  <Radar
-                    dataKey="value"
-                    stroke="#3B82F6"
-                    fill="#3B82F6"
-                    fillOpacity={0.15}
-                    strokeWidth={2}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
+            <div className="h-[280px] sm:h-[320px] lg:h-[360px] w-full" style={{ minWidth: 10, minHeight: 10 }}>
+              {isMounted && (
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="65%">
+                    <PolarGrid
+                      stroke="rgba(148,163,184,0.1)"
+                      strokeDasharray="3 3"
+                    />
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{
+                        fill: "rgba(148,163,184,0.6)",
+                        fontSize: 10,
+                      }}
+                    />
+                    <Radar
+                      dataKey="value"
+                      stroke="#3B82F6"
+                      fill="#3B82F6"
+                      fillOpacity={0.15}
+                      strokeWidth={2}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              )}
             </div>
           </motion.div>
 
@@ -108,7 +117,7 @@ export function TechVisualization() {
                   return (
                     <div
                       key={cat.title}
-                      className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-foreground/50"
+                      className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-slate-600 dark:text-slate-400"
                     >
                       <Icon className="w-3 h-3 flex-shrink-0" />
                       <span className="truncate">

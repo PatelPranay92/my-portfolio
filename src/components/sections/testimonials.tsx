@@ -39,7 +39,7 @@ export function Testimonials() {
                 </div>
 
                 {/* Content */}
-                <p className="text-sm text-foreground/60 leading-relaxed mb-6 italic">
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-6 italic">
                   &ldquo;{testimonial.content}&rdquo;
                 </p>
 
@@ -55,7 +55,7 @@ export function Testimonials() {
                     <div className="text-sm font-semibold">
                       {testimonial.name}
                     </div>
-                    <div className="text-xs text-foreground/40">
+                    <div className="text-xs text-slate-600 dark:text-slate-400">
                       {testimonial.role} at {testimonial.company}
                     </div>
                   </div>

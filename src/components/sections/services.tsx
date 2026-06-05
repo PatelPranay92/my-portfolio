@@ -57,7 +57,7 @@ export function Services() {
                   <h3 className="text-sm font-bold mb-2 relative z-10">
                     {service.title}
                   </h3>
-                  <p className="text-xs text-foreground/50 leading-relaxed relative z-10">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed relative z-10">
                     {service.description}
                   </p>
                 </div>

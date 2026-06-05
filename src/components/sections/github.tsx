@@ -98,7 +98,7 @@ export function GitHubSection() {
                 <div className="text-2xl font-bold mb-1">
                   <AnimatedCounter value={stat.value} suffix="+" />
                 </div>
-                <div className="text-xs text-foreground/40">{stat.label}</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">{stat.label}</div>
               </motion.div>
             );
           })}
@@ -134,7 +134,7 @@ export function GitHubSection() {
                       />
                       {lang.name}
                     </span>
-                    <span className="text-foreground/40">{lang.pct}%</span>
+                    <span className="text-slate-600 dark:text-slate-400">{lang.pct}%</span>
                   </div>
                   <div className="h-1.5 rounded-full bg-foreground/5 overflow-hidden">
                     <motion.div
@@ -178,7 +178,7 @@ export function GitHubSection() {
                 );
               })}
             </div>
-            <div className="flex items-center justify-between mt-4 text-[10px] text-foreground/30">
+            <div className="flex items-center justify-between mt-4 text-[10px] text-slate-500 dark:text-slate-500">
               <span>Less</span>
               <div className="flex gap-1">
                 <div className="w-3 h-3 rounded-[2px] bg-foreground/[0.03]" />

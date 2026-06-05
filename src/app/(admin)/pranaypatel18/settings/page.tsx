@@ -6,15 +6,71 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, Key, Sun, Moon, Laptop, Palette } from "lucide-react";
+import { Loader2, Key, Sun, Moon, Laptop, Palette, FileText, UploadCloud, CheckCircle2 } from "lucide-react";
 import { updateAdminCredentials } from "@/actions/admin.actions";
 
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploadingResume, setIsUploadingResume] = useState(false);
+  const [resumeName, setResumeName] = useState<string | null>(null);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    fetch("/api/resume")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data?.fileName) {
+          setResumeName(json.data.fileName);
+        }
+      })
+      .catch(console.error);
+  }, []);
+  
+  const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.type !== "application/pdf") {
+      toast.error("Only PDF files are allowed");
+      return;
+    }
+
+    setIsUploadingResume(true);
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Data = event.target?.result;
+      if (!base64Data) {
+        toast.error("Failed to read file");
+        setIsUploadingResume(false);
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/resume", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fileName: file.name,
+            fileData: base64Data,
+          }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          toast.success("Resume uploaded successfully!");
+          setResumeName(file.name);
+        } else {
+          toast.error(data.error || "Failed to upload resume");
+        }
+      } catch (error) {
+        toast.error("An unexpected error occurred while uploading");
+      } finally {
+        setIsUploadingResume(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -106,6 +162,49 @@ export default function SettingsPage() {
             <Laptop className="w-6 h-6" />
             <span className="text-sm font-medium">System</span>
           </button>
+        </div>
+      </div>
+
+      {/* Resume Settings */}
+      <div className="bg-slate-900/50 p-6 md:p-8 rounded-2xl border border-slate-800">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
+            <FileText className="w-5 h-5" />
+          </div>
+          <div>
+            <h2 className="text-lg font-medium text-white">Resume Upload</h2>
+            <p className="text-sm text-slate-400">Manage the resume file available for download</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex-1 w-full bg-slate-900 border border-slate-700 rounded-lg p-3 flex items-center gap-3">
+            <FileText className="w-5 h-5 text-slate-400" />
+            <span className="text-sm text-slate-300 truncate">
+              {resumeName ? resumeName : "No resume uploaded yet"}
+            </span>
+            {resumeName && <CheckCircle2 className="w-4 h-4 text-emerald-500 ml-auto flex-shrink-0" />}
+          </div>
+          <div className="relative w-full sm:w-auto">
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleResumeUpload}
+              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              disabled={isUploadingResume}
+            />
+            <Button
+              disabled={isUploadingResume}
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20"
+            >
+              {isUploadingResume ? (
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <UploadCloud className="w-4 h-4 mr-2" />
+              )}
+              {isUploadingResume ? "Uploading..." : "Upload New Resume"}
+            </Button>
+          </div>
         </div>
       </div>
 

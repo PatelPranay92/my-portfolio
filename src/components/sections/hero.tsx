@@ -52,7 +52,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
             </motion.h1>
 
             <motion.div
-              className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground/70 mb-6 h-10"
+              className="text-xl sm:text-2xl md:text-3xl font-semibold text-slate-700 dark:text-slate-300 mb-6 h-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -67,7 +67,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
             </motion.div>
 
             <motion.p
-              className="text-foreground/50 max-w-xl 2xl:max-w-2xl mb-8 leading-relaxed"
+              className="text-slate-600 dark:text-slate-400 max-w-xl 2xl:max-w-2xl mb-8 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
@@ -85,7 +85,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
               <Button
                 size="lg"
                 className="bg-[#3B82F6] hover:bg-[#2563EB] text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all cursor-pointer"
-                onClick={() => window.open("/resume.pdf", "_blank")}
+                onClick={() => window.open("/api/resume/download", "_blank")}
               >
                 <FileDown className="w-4 h-4 mr-2" />
                 Download Resume
@@ -123,7 +123,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 + i * 0.05 }}
-                  className="px-3 py-1 text-xs font-medium rounded-full border border-foreground/10 bg-foreground/5 text-foreground/50 hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors"
+                  className="px-3 py-1 text-xs font-medium rounded-full border border-foreground/10 bg-foreground/5 text-slate-600 dark:text-slate-400 hover:border-[#3B82F6]/30 hover:text-[#3B82F6] transition-colors"
                 >
                   {tech}
                 </motion.span>
@@ -168,8 +168,8 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                   <h3 className="text-xl font-bold text-center mb-1">
                     Pranay Patel
                   </h3>
-                  <p className="text-sm text-center text-foreground/50 mb-6">
-                    Full Stack Developer & AI Engineer
+                  <p className="text-sm text-center text-slate-600 dark:text-slate-400 mb-6">
+                    Full Stack Developer
                   </p>
 
                   {/* Stats */}
@@ -183,7 +183,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                         <div className="text-lg font-bold gradient-text">
                           {stat.value}
                         </div>
-                        <div className="text-[10px] text-foreground/40 uppercase tracking-wider">
+                        <div className="text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                           {stat.label}
                         </div>
                       </div>
@@ -203,7 +203,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-3 rounded-xl glass hover:bg-foreground/10 text-foreground/60 hover:text-foreground transition-all hover:scale-110"
+                          className="p-3 rounded-xl glass hover:bg-foreground/10 text-slate-700 dark:text-slate-300 hover:text-foreground transition-all hover:scale-110"
                           aria-label={link.platform}
                         >
                           <Icon className="w-5 h-5" />
@@ -213,7 +213,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                   </div>
 
                   {/* Status */}
-                  <div className="flex items-center justify-center gap-2 text-xs text-foreground/40">
+                  <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                     Open to work
                   </div>
@@ -234,7 +234,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
             className="p-2 rounded-full border border-foreground/10 hover:border-foreground/20 transition-colors cursor-pointer"
             aria-label="Scroll to about"
           >
-            <ArrowDown className="w-4 h-4 text-foreground/40" />
+            <ArrowDown className="w-4 h-4 text-slate-600 dark:text-slate-400" />
           </button>
         </motion.div>
       </div>

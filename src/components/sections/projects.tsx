@@ -73,7 +73,7 @@ export function Projects({ initialProjects = [] }: { initialProjects?: any[] }) 
                           <div className="w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
                             <ExternalLink className="w-6 h-6 text-[#3B82F6]" />
                           </div>
-                          <p className="text-sm font-medium text-foreground/50">
+                          <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
                             {project.title}
                           </p>
                         </div>
@@ -93,7 +93,7 @@ export function Projects({ initialProjects = [] }: { initialProjects?: any[] }) 
                         {project.title}
                       </h3>
                     </a>
-                    <p className="text-sm text-foreground/50 leading-relaxed mb-4 line-clamp-3">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">
                       {project.shortDescription}
                     </p>
 
@@ -102,7 +102,7 @@ export function Projects({ initialProjects = [] }: { initialProjects?: any[] }) 
                         <Badge
                           key={tech}
                           variant="outline"
-                          className="text-[10px] border-foreground/10 text-foreground/50"
+                          className="text-[10px] border-foreground/10 text-slate-600 dark:text-slate-400"
                         >
                           {tech}
                         </Badge>
@@ -136,7 +136,7 @@ export function Projects({ initialProjects = [] }: { initialProjects?: any[] }) 
                             transition={{ duration: 0.3 }}
                             className="overflow-hidden"
                           >
-                            <div className="pt-4 mb-4 border-t border-foreground/5 text-sm text-foreground/70 leading-relaxed whitespace-pre-wrap">
+                            <div className="pt-4 mb-4 border-t border-foreground/5 text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
                               {project.fullDescription}
                             </div>
                           </motion.div>
