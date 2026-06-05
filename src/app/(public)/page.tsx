@@ -20,7 +20,7 @@ import {
   BackToTop,
 } from "./client-components";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
   const [allProjects, featuredProjects, skills, socialLinks] = await Promise.all([
