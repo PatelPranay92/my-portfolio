@@ -45,9 +45,9 @@ export function TechVisualization() {
               <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />
               Skill Radar
             </h3>
-            <div className="h-[280px] sm:h-[320px] lg:h-[360px] w-full" style={{ minWidth: 10, minHeight: 10 }}>
+            <div className="relative h-[280px] sm:h-[320px] lg:h-[360px] w-full" style={{ minWidth: 0 }}>
               {isMounted && (
-                <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="99%" height="100%" debounce={1}>
                   <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="65%">
                     <PolarGrid
                       stroke="rgba(148,163,184,0.1)"

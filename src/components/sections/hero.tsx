@@ -142,10 +142,10 @@ export function Hero({ socialLinks = [] }: { socialLinks?: SocialLinkItem[] }) {
 
           {/* Right - Glassmorphism Card */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="hidden lg:flex items-center justify-center"
+            className="flex items-center justify-center mt-12 lg:mt-0"
           >
             <div className="relative">
               {/* Floating orbs */}

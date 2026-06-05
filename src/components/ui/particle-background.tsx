@@ -43,10 +43,28 @@ export function ParticleBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
+
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles(canvas.width, canvas.height);
+      const currentWidth = window.innerWidth;
+      const currentHeight = window.innerHeight;
+
+      // Only re-initialize particles if width changed significantly or height changed significantly (e.g. orientation change)
+      const widthChanged = Math.abs(currentWidth - lastWidth) > 10;
+      const heightChanged = Math.abs(currentHeight - lastHeight) > 120; // address bar is usually < 100px
+
+      if (widthChanged || heightChanged) {
+        canvas.width = currentWidth;
+        canvas.height = currentHeight;
+        lastWidth = currentWidth;
+        lastHeight = currentHeight;
+        initParticles(currentWidth, currentHeight);
+      } else {
+        // Just adjust canvas size without re-generating particles
+        canvas.width = currentWidth;
+        canvas.height = currentHeight;
+      }
     };
 
     const handleMouseMove = (e: MouseEvent) => {
