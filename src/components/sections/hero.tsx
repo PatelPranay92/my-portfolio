@@ -2,12 +2,18 @@
 
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import { ArrowDown, FileDown, FolderGit2, Mail, LinkIcon } from "lucide-react";
+import { FileDown, FolderGit2, Mail, LinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/ui/social-icons";
 import { heroRoles, technologies } from "@/lib/data";
 
-export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
+interface SocialLinkItem {
+  platform: string;
+  url: string;
+  icon?: string;
+}
+
+export function Hero({ socialLinks = [] }: { socialLinks?: SocialLinkItem[] }) {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -175,9 +181,9 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                   {/* Stats */}
                   <div className="grid grid-cols-3 gap-4 mb-6">
                     {[
-                      { label: "Projects", value: "20+" },
-                      { label: "Technologies", value: "30+" },
-                      { label: "AI Projects", value: "5+" },
+                      { label: "Projects", value: "10+" },
+                      { label: "Technologies", value: "15+" },
+                      { label: "AI Projects", value: "2" },
                     ].map((stat) => (
                       <div key={stat.label} className="text-center">
                         <div className="text-lg font-bold gradient-text">
@@ -191,8 +197,8 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
                   </div>
 
                   <div className="flex justify-center gap-4 mb-6">
-                    {socialLinks.map((link, i) => {
-                      let Icon: any = LinkIcon;
+                    {socialLinks.map((link) => {
+                      let Icon: React.ComponentType<{ className?: string }> = LinkIcon;
                       if (link.icon === "GithubIcon") Icon = GithubIcon;
                       if (link.icon === "LinkedinIcon") Icon = LinkedinIcon;
                       if (link.icon === "TwitterIcon") Icon = TwitterIcon;
@@ -223,20 +229,7 @@ export function Hero({ socialLinks = [] }: { socialLinks?: any[] }) {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <button
-            onClick={() => scrollTo("about")}
-            className="p-2 rounded-full border border-foreground/10 hover:border-foreground/20 transition-colors cursor-pointer"
-            aria-label="Scroll to about"
-          >
-            <ArrowDown className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-          </button>
-        </motion.div>
+
       </div>
     </section>
   );
