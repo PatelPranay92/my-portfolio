@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
   Menu,
+  Mail,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -19,6 +20,7 @@ export const navItems = [
   { href: "/pranaypatel18/projects", label: "Projects", icon: FolderGit2 },
   { href: "/pranaypatel18/skills", label: "Skills", icon: Code2 },
   { href: "/pranaypatel18/social-links", label: "Social Links", icon: Share2 },
+  { href: "/pranaypatel18/messages", label: "Messages", icon: Mail },
   { href: "/pranaypatel18/settings", label: "Settings", icon: Settings },
 ];
 

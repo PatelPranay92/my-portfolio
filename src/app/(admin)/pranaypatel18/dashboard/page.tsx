@@ -1,4 +1,4 @@
-import { FolderGit2, Code2, Share2, Plus, ArrowRight } from "lucide-react";
+import { FolderGit2, Code2, Share2, Plus, ArrowRight, Mail } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
@@ -6,6 +6,7 @@ import connectDB from "@/lib/mongodb";
 import { Project } from "@/models/project";
 import { Skill } from "@/models/skill";
 import { SocialLink } from "@/models/social-link";
+import { ContactMessage } from "@/models/contact-message";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -16,10 +17,11 @@ export default async function DashboardPage() {
   await connectDB();
 
   // Fetch counts
-  const [projectCount, skillCount, socialLinkCount] = await Promise.all([
+  const [projectCount, skillCount, socialLinkCount, messageCount] = await Promise.all([
     Project.countDocuments(),
     Skill.countDocuments(),
     SocialLink.countDocuments(),
+    ContactMessage.countDocuments(),
   ]);
 
   const stats = [
@@ -50,6 +52,15 @@ export default async function DashboardPage() {
       border: "border-purple-500/20",
       href: "/pranaypatel18/social-links",
     },
+    {
+      title: "Contact Messages",
+      value: messageCount,
+      icon: Mail,
+      color: "text-rose-400",
+      bg: "bg-rose-500/10",
+      border: "border-rose-500/20",
+      href: "/pranaypatel18/messages",
+    },
   ];
 
   return (
@@ -65,7 +76,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
           <div
             key={stat.title}

@@ -22,6 +22,22 @@ export function Projects({ initialProjects = [] }: { initialProjects?: any[] }) 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading title="Featured Projects" subtitle="My Work" />
 
+        {/* Project Stats Header */}
+        <div className="flex justify-center gap-8 md:gap-16 mb-12 max-w-xl mx-auto py-5 px-6 rounded-3xl bg-slate-900/40 backdrop-blur-xl border border-slate-800/60 shadow-xl shadow-black/20">
+          {[
+            { label: "Projects Built", value: "10+" },
+            { label: "Technologies Used", value: "15+" },
+            { label: "AI Applications", value: "2" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-2xl md:text-3xl font-extrabold gradient-text leading-none">{stat.value}</div>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold mt-2">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
           {initialProjects.map((project: any, i: number) => {

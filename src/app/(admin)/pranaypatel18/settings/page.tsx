@@ -236,7 +236,7 @@ export default function SettingsPage() {
 
         <div className="flex flex-col md:flex-row items-center gap-6">
           {/* Avatar Preview */}
-          <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-blue-500/20 overflow-hidden flex-shrink-0">
+          <div className="relative w-56 h-56 rounded-3xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-4xl font-bold shadow-lg shadow-blue-500/20 overflow-hidden flex-shrink-0">
             {avatarName ? (
               <img
                 src={`/api/avatar?t=${avatarTimestamp}`}

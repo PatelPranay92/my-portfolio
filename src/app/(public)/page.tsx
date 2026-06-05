@@ -1,12 +1,10 @@
 // Server Component
-import dynamic from "next/dynamic";
 import { Navbar } from "@/components/sections/navbar";
 import { Hero } from "@/components/sections/hero";
 import { About } from "@/components/sections/about";
 import { Skills } from "@/components/sections/skills";
 import { Projects } from "@/components/sections/projects";
 import { Experience } from "@/components/sections/experience";
-import { Achievements } from "@/components/sections/achievements";
 import { Services } from "@/components/sections/services";
 
 import { Footer } from "@/components/sections/footer";
@@ -21,6 +19,8 @@ import {
   ScrollProgress,
   BackToTop,
 } from "./client-components";
+
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const [allProjects, featuredProjects, skills, socialLinks] = await Promise.all([
@@ -45,7 +45,6 @@ export default async function Home() {
         <Projects initialProjects={allProjects} />
         <GitHubSection />
         <Experience />
-        <Achievements />
         <TechVisualization />
         <Services />
 

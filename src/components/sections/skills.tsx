@@ -10,6 +10,7 @@ import {
   Server,
   Settings,
   BrainCircuit,
+  Grid,
 } from "lucide-react";
 
 export function Skills({ initialSkills = [] }: { initialSkills?: any[] }) {
@@ -17,6 +18,7 @@ export function Skills({ initialSkills = [] }: { initialSkills?: any[] }) {
 
   // Group skills by category
   const categories = [
+    { title: "All Skills", icon: Grid, skills: initialSkills },
     { title: "Frontend", icon: Layout, skills: initialSkills.filter(s => s.category === "Frontend") },
     { title: "Backend", icon: Server, skills: initialSkills.filter(s => s.category === "Backend") },
     { title: "Database", icon: Database, skills: initialSkills.filter(s => s.category === "Database") },

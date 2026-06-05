@@ -166,11 +166,11 @@ export function Hero({ socialLinks = [] }: { socialLinks?: SocialLinkItem[] }) {
               />
 
               {/* Main Card */}
-              <div className="relative glass-card rounded-3xl p-6 sm:p-8 2xl:p-10 w-full max-w-[280px] sm:max-w-xs md:max-w-sm lg:max-w-md 2xl:max-w-lg mx-auto">
+              <div className="relative glass-card rounded-3xl p-8 sm:p-10 2xl:p-12 w-full max-w-[340px] sm:max-w-[380px] md:max-w-[420px] mx-auto">
                 <div className="animate-pulse-glow rounded-3xl absolute inset-0 opacity-30" />
                 <div className="relative">
                   {/* Avatar */}
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-blue-500/20 overflow-hidden">
+                  <div className="w-56 h-56 mx-auto mb-8 rounded-3xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-4xl font-bold shadow-lg shadow-blue-500/20 overflow-hidden">
                     {!avatarError ? (
                       <img
                         src="/api/avatar"
@@ -183,55 +183,15 @@ export function Hero({ socialLinks = [] }: { socialLinks?: SocialLinkItem[] }) {
                     )}
                   </div>
 
-                  <h3 className="text-xl font-bold text-center mb-1">
+                  <h3 className="text-2xl font-extrabold text-center mb-2">
                     Pranay Patel
                   </h3>
-                  <p className="text-sm text-center text-slate-600 dark:text-slate-400 mb-6">
+                  <p className="text-base text-center text-slate-600 dark:text-slate-400 mb-6">
                     Full Stack Developer
                   </p>
 
-                  {/* Stats */}
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    {[
-                      { label: "Projects", value: "10+" },
-                      { label: "Technologies", value: "15+" },
-                      { label: "AI Projects", value: "2" },
-                    ].map((stat) => (
-                      <div key={stat.label} className="text-center">
-                        <div className="text-lg font-bold gradient-text">
-                          {stat.value}
-                        </div>
-                        <div className="text-[10px] text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                          {stat.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex justify-center gap-4 mb-6">
-                    {socialLinks.map((link) => {
-                      let Icon: React.ComponentType<{ className?: string }> = LinkIcon;
-                      if (link.icon === "GithubIcon") Icon = GithubIcon;
-                      if (link.icon === "LinkedinIcon") Icon = LinkedinIcon;
-                      if (link.icon === "TwitterIcon") Icon = TwitterIcon;
-
-                      return (
-                        <a
-                          key={link.platform}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-3 rounded-xl glass hover:bg-foreground/10 text-slate-700 dark:text-slate-300 hover:text-foreground transition-all hover:scale-110"
-                          aria-label={link.platform}
-                        >
-                          <Icon className="w-5 h-5" />
-                        </a>
-                      );
-                    })}
-                  </div>
-
                   {/* Status */}
-                  <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                  <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 mt-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                     Open to work
                   </div>

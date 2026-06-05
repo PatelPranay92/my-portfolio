@@ -13,6 +13,83 @@ interface GitHubData {
   following: number;
 }
 
+function isPixelActive(col: number, row: number): boolean {
+  const offset = 3;
+  const c = col - offset;
+  
+  if (c < 0) return false;
+
+  // P (0, 1, 2)
+  if (c >= 0 && c <= 2) {
+    if (c === 0) return true;
+    if (c === 1) return row === 0 || row === 2;
+    if (c === 2) return row === 0 || row === 1 || row === 2;
+  }
+  // R (4, 5, 6)
+  if (c >= 4 && c <= 6) {
+    if (c === 4) return true;
+    if (c === 5) return row === 0 || row === 2 || row === 3;
+    if (c === 6) return row === 0 || row === 1 || row === 2 || row === 4 || row === 5 || row === 6;
+  }
+  // A (8, 9, 10)
+  if (c >= 8 && c <= 10) {
+    if (c === 8) return true;
+    if (c === 9) return row === 0 || row === 3;
+    if (c === 10) return true;
+  }
+  // N (12, 13, 14, 15)
+  if (c >= 12 && c <= 15) {
+    if (c === 12) return true;
+    if (c === 13) return row === 1;
+    if (c === 14) return row === 2;
+    if (c === 15) return true;
+  }
+  // A (17, 18, 19)
+  if (c >= 17 && c <= 19) {
+    if (c === 17) return true;
+    if (c === 18) return row === 0 || row === 3;
+    if (c === 19) return true;
+  }
+  // Y (21, 22, 23)
+  if (c >= 21 && c <= 23) {
+    if (c === 21) return row === 0 || row === 1 || row === 2;
+    if (c === 22) return row === 3 || row === 4 || row === 5 || row === 6;
+    if (c === 23) return row === 0 || row === 1 || row === 2;
+  }
+  // P (27, 28, 29)
+  if (c >= 27 && c <= 29) {
+    if (c === 27) return true;
+    if (c === 28) return row === 0 || row === 2;
+    if (c === 29) return row === 0 || row === 1 || row === 2;
+  }
+  // A (31, 32, 33)
+  if (c >= 31 && c <= 33) {
+    if (c === 31) return true;
+    if (c === 32) return row === 0 || row === 3;
+    if (c === 33) return true;
+  }
+  // T (35, 36, 37)
+  if (c >= 35 && c <= 37) {
+    if (c === 35) return row === 0;
+    if (c === 36) return true;
+    if (c === 37) return row === 0;
+  }
+  // E (39, 40, 41)
+  if (c >= 39 && c <= 41) {
+    if (c === 39) return true;
+    if (c === 40) return row === 0 || row === 3 || row === 6;
+    if (c === 41) return row === 0 || row === 3 || row === 6;
+  }
+  // L (43, 44, 45)
+  if (c >= 43 && c <= 45) {
+    if (c === 43) return true;
+    if (c === 44) return row === 6;
+    if (c === 45) return row === 6;
+  }
+
+  return false;
+}
+
 export function GitHubSection() {
   const [data, setData] = useState<GitHubData | null>(null);
 
@@ -53,7 +130,7 @@ export function GitHubSection() {
     {
       icon: Activity,
       label: "Contributions",
-      value: 500,
+      value: 150,
       color: "#10B981",
     },
   ];
@@ -162,21 +239,34 @@ export function GitHubSection() {
               <div className="w-2 h-2 rounded-full bg-[#10B981]" />
               Contribution Activity
             </h3>
-            <div className="grid grid-cols-[repeat(52,1fr)] gap-[3px]">
-              {Array.from({ length: 364 }, (_, i) => {
-                const intensity = Math.random();
-                let bg = "bg-foreground/[0.03]";
-                if (intensity > 0.8) bg = "bg-[#10B981]";
-                else if (intensity > 0.6) bg = "bg-[#10B981]/60";
-                else if (intensity > 0.4) bg = "bg-[#10B981]/30";
-                else if (intensity > 0.25) bg = "bg-[#10B981]/15";
-                return (
-                  <div
-                    key={i}
-                    className={`aspect-square rounded-[2px] ${bg}`}
-                  />
-                );
-              })}
+             <div className="w-full overflow-x-auto pb-2 scrollbar-none">
+              <div className="min-w-[640px] p-4 bg-slate-950/20 border border-slate-800/40 rounded-xl">
+                <div className="grid grid-cols-[repeat(53,1fr)] gap-[3.5px]">
+                  {Array.from({ length: 371 }, (_, i) => {
+                    const row = Math.floor(i / 53);
+                    const col = i % 53;
+                    const isActive = isPixelActive(col, row);
+                    
+                    let bg = "bg-foreground/[0.03]";
+                    if (isActive) {
+                      const rand = Math.random();
+                      if (rand > 0.8) bg = "bg-[#10B981]/30";
+                      else bg = "bg-[#10B981]/15";
+                    } else {
+                      if (Math.random() > 0.95) {
+                        bg = "bg-[#10B981]/15";
+                      }
+                    }
+
+                    return (
+                      <div
+                        key={i}
+                        className={`aspect-square rounded-[2px] ${bg} transition-all duration-300 hover:scale-110`}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
             </div>
             <div className="flex items-center justify-between mt-4 text-[10px] text-slate-500 dark:text-slate-500">
               <span>Less</span>
