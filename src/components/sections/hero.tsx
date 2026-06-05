@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { FileDown, FolderGit2, Mail, LinkIcon } from "lucide-react";
@@ -14,6 +15,8 @@ interface SocialLinkItem {
 }
 
 export function Hero({ socialLinks = [] }: { socialLinks?: SocialLinkItem[] }) {
+  const [avatarError, setAvatarError] = useState(false);
+
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -167,8 +170,17 @@ export function Hero({ socialLinks = [] }: { socialLinks?: SocialLinkItem[] }) {
                 <div className="animate-pulse-glow rounded-3xl absolute inset-0 opacity-30" />
                 <div className="relative">
                   {/* Avatar */}
-                  <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-blue-500/20">
-                    PP
+                  <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-blue-500/20 overflow-hidden">
+                    {!avatarError ? (
+                      <img
+                        src="/api/avatar"
+                        alt="Pranay Patel"
+                        onError={() => setAvatarError(true)}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      "PP"
+                    )}
                   </div>
 
                   <h3 className="text-xl font-bold text-center mb-1">

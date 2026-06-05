@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2, Key, Sun, Moon, Laptop, Palette, FileText, UploadCloud, CheckCircle2 } from "lucide-react";
+import { Loader2, Key, Sun, Moon, Laptop, Palette, FileText, UploadCloud, CheckCircle2, User } from "lucide-react";
 import { updateAdminCredentials } from "@/actions/admin.actions";
 
 export default function SettingsPage() {
@@ -15,6 +15,9 @@ export default function SettingsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadingResume, setIsUploadingResume] = useState(false);
   const [resumeName, setResumeName] = useState<string | null>(null);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [avatarName, setAvatarName] = useState<string | null>(null);
+  const [avatarTimestamp, setAvatarTimestamp] = useState<number>(Date.now());
 
   useEffect(() => {
     setMounted(true);
@@ -23,6 +26,15 @@ export default function SettingsPage() {
       .then((json) => {
         if (json.success && json.data?.fileName) {
           setResumeName(json.data.fileName);
+        }
+      })
+      .catch(console.error);
+
+    fetch("/api/avatar?info=true")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && json.data?.fileName) {
+          setAvatarName(json.data.fileName);
         }
       })
       .catch(console.error);
@@ -66,6 +78,51 @@ export default function SettingsPage() {
         toast.error("An unexpected error occurred while uploading");
       } finally {
         setIsUploadingResume(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Only image files (PNG, JPEG, WEBP) are allowed");
+      return;
+    }
+
+    setIsUploadingAvatar(true);
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const base64Data = event.target?.result;
+      if (!base64Data) {
+        toast.error("Failed to read file");
+        setIsUploadingAvatar(false);
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/avatar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fileName: file.name,
+            fileData: base64Data,
+            contentType: file.type,
+          }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          toast.success("Profile photo uploaded successfully!");
+          setAvatarName(file.name);
+          setAvatarTimestamp(Date.now());
+        } else {
+          toast.error(data.error || "Failed to upload profile photo");
+        }
+      } catch (error) {
+        toast.error("An unexpected error occurred while uploading");
+      } finally {
+        setIsUploadingAvatar(false);
       }
     };
     reader.readAsDataURL(file);
@@ -162,6 +219,65 @@ export default function SettingsPage() {
             <Laptop className="w-6 h-6" />
             <span className="text-sm font-medium">System</span>
           </button>
+        </div>
+      </div>
+
+      {/* Profile Photo Settings */}
+      <div className="bg-slate-900/50 p-6 md:p-8 rounded-2xl border border-slate-800">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400">
+            <User className="w-5 h-5" />
+          </div>
+          <div>
+            <h2 className="text-lg font-medium text-white">Profile Photo</h2>
+            <p className="text-sm text-slate-400">Manage your profile picture displayed on the homepage</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          {/* Avatar Preview */}
+          <div className="relative w-24 h-24 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white text-3xl font-bold shadow-lg shadow-blue-500/20 overflow-hidden flex-shrink-0">
+            {avatarName ? (
+              <img
+                src={`/api/avatar?t=${avatarTimestamp}`}
+                alt="Profile Preview"
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              "PP"
+            )}
+          </div>
+
+          <div className="flex-1 w-full space-y-4">
+            <div className="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 flex items-center gap-3">
+              <User className="w-5 h-5 text-slate-400" />
+              <span className="text-sm text-slate-300 truncate">
+                {avatarName ? avatarName : "No custom photo uploaded yet"}
+              </span>
+              {avatarName && <CheckCircle2 className="w-4 h-4 text-emerald-500 ml-auto flex-shrink-0" />}
+            </div>
+            
+            <div className="relative w-full sm:w-auto inline-block">
+              <input
+                type="file"
+                accept="image/png, image/jpeg, image/webp"
+                onChange={handleAvatarUpload}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                disabled={isUploadingAvatar}
+              />
+              <Button
+                disabled={isUploadingAvatar}
+                className="w-full sm:w-auto bg-violet-600 hover:bg-violet-500 text-white shadow-lg shadow-violet-500/20"
+              >
+                {isUploadingAvatar ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <UploadCloud className="w-4 h-4 mr-2" />
+                )}
+                {isUploadingAvatar ? "Uploading..." : "Upload Photo"}
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 
