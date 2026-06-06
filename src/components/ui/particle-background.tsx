@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 
 interface Particle {
   x: number;
@@ -17,12 +17,21 @@ export function ParticleBackground() {
   const mouseRef = useRef({ x: 0, y: 0 });
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const colors = ["#3B82F6", "#8B5CF6", "#06B6D4"];
 
+  useEffect(() => {
+    // Skip heavy canvas animation on touch/mobile devices
+    const mobileCheck =
+      window.innerWidth < 768 || "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsMobile(mobileCheck);
+  }, []);
+
   const initParticles = useCallback(
     (width: number, height: number) => {
-      const count = Math.min(Math.floor((width * height) / 18000), 80);
+      // Fewer particles on smaller screens
+      const count = Math.min(Math.floor((width * height) / 18000), 60);
       particlesRef.current = Array.from({ length: count }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
@@ -38,6 +47,8 @@ export function ParticleBackground() {
   );
 
   useEffect(() => {
+    if (isMobile) return; // Skip on mobile
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -50,9 +61,8 @@ export function ParticleBackground() {
       const currentWidth = window.innerWidth;
       const currentHeight = window.innerHeight;
 
-      // Only re-initialize particles if width changed significantly or height changed significantly (e.g. orientation change)
       const widthChanged = Math.abs(currentWidth - lastWidth) > 10;
-      const heightChanged = Math.abs(currentHeight - lastHeight) > 120; // address bar is usually < 100px
+      const heightChanged = Math.abs(currentHeight - lastHeight) > 120;
 
       if (widthChanged || heightChanged) {
         canvas.width = currentWidth;
@@ -61,7 +71,6 @@ export function ParticleBackground() {
         lastHeight = currentHeight;
         initParticles(currentWidth, currentHeight);
       } else {
-        // Just adjust canvas size without re-generating particles
         canvas.width = currentWidth;
         canvas.height = currentHeight;
       }
@@ -140,7 +149,10 @@ export function ParticleBackground() {
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [initParticles]);
+  }, [initParticles, isMobile]);
+
+  // Don't render canvas at all on mobile
+  if (isMobile) return null;
 
   return (
     <canvas
@@ -150,3 +162,5 @@ export function ParticleBackground() {
     />
   );
 }
+
+

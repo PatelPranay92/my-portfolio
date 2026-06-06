@@ -338,3 +338,41 @@
   background-size: 400% 400%;
   animation: gradient-shift 4s ease infinite;
 }
+
+/* ─── Mobile Performance Optimizations ────────────────── */
+@media (max-width: 768px) {
+  /* Disable expensive blur effects on mobile */
+  .bg-grid {
+    animation: none;
+    opacity: 0.04;
+  }
+
+  /* Reduce backdrop-filter blur on mobile (very GPU-heavy on iOS) */
+  .glass,
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable pulse-glow animation on mobile */
+  .animate-pulse-glow {
+    animation: none;
+  }
+
+  /* Simplify large blur orbs on mobile */
+  [class*="blur-[128px]"],
+  [class*="blur-[150px]"] {
+    display: none;
+  }
+}
+
+/* ─── Reduced Motion ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

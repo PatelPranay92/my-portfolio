@@ -24,10 +24,10 @@ export const revalidate = 60;
 
 export default async function Home() {
   const [allProjects, featuredProjects, skills, socialLinks] = await Promise.all([
-    getProjects(),
-    getFeaturedProjects(),
-    getSkills(),
-    getSocialLinks(),
+    getProjects().catch(() => []),
+    getFeaturedProjects().catch(() => []),
+    getSkills().catch(() => []),
+    getSocialLinks().catch(() => []),
   ]);
 
   return (
