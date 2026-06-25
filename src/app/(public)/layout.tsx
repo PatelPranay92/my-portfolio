@@ -79,10 +79,10 @@ export default function RootLayout({
               "@type": "Person",
               name: "Pranay Patel",
               jobTitle: "Full Stack Developer",
-              url: "https://pranaypatel.dev",
+              url: "https://pranaypatel-portfolio.vercel.app",
               sameAs: [
                 "https://github.com/PatelPranay92",
-                "www.linkedin.com/in/pranay-patel-ab1168284",
+                "https://www.linkedin.com/in/pranay-patel-ab1168284",
               ],
               knowsAbout: [
                 "Full Stack Development",
