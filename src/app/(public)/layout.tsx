@@ -22,6 +22,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://pranaypatel-portfolio.vercel.app/"),
   title: "Pranay Patel — Full Stack Developer",
   description:
     "Portfolio of Pranay Patel — Full Stack Developer specializing in modern web technologies and enterprise-grade applications. Building scalable web applications and modern digital experiences.",
